@@ -6,7 +6,7 @@ class Game {
     // Settings
     this.PLAYER_COLOR = "#2c3e50";
     this.PILL_COLOR = "#d9534f";
-    this.TIME_LEFT = 5;
+    this.TIME_LEFT = 30;
     this.TARGET_CELL_SIZE = 30; // Target size for each cell in pixels
 
     // Game state
@@ -48,6 +48,27 @@ class Game {
   }
 
   bindEvents() {
+    window.addEventListener("keydown", (e) => {
+      const k = e.key;
+      if (!this.running) return;
+      if (k === "ArrowUp" || k === "w" || k === "W") {
+        this.tryMove("N");
+        e.preventDefault();
+      }
+      if (k === "ArrowDown" || k === "s" || k === "S") {
+        this.tryMove("S");
+        e.preventDefault();
+      }
+      if (k === "ArrowLeft" || k === "a" || k === "A") {
+        this.tryMove("W");
+        e.preventDefault();
+      }
+      if (k === "ArrowRight" || k === "d" || k === "D") {
+        this.tryMove("E");
+        e.preventDefault();
+      }
+    });
+
     this.startBtn.addEventListener("click", () => this.startGame());
     this.restartBtn.addEventListener("click", () => this.startGame());
   }
@@ -208,6 +229,50 @@ class Game {
 
   cellToPixel(r, c) {
     return { x: c * this.CELL_SIZE, y: r * this.CELL_SIZE };
+  }
+
+  tryMove(dir) {
+    if (!this.running) return;
+    const cur = this.maze[this.player.r][this.player.c];
+    let nr = this.player.r,
+      nc = this.player.c;
+    if (dir === "N") {
+      if (!cur.walls.N) nr--;
+    }
+    if (dir === "S") {
+      if (!cur.walls.S) nr++;
+    }
+    if (dir === "W") {
+      if (!cur.walls.W) nc--;
+    }
+    if (dir === "E") {
+      if (!cur.walls.E) nc++;
+    }
+    if (nr === this.player.r && nc === this.player.c) return; // blocked
+    if (this.canMoveTo(nr, nc)) {
+      this.player.r = nr;
+      this.player.c = nc;
+      this.checkPill();
+      this.render();
+    }
+  }
+
+  canMoveTo(r, c) {
+    if (r < 0 || c < 0 || r >= this.maze.length || c >= this.maze[0].length)
+      return false;
+    return true;
+  }
+
+  checkPill() {
+    for (let i = 0; i < this.pills.length; i++) {
+      const p = this.pills[i];
+      if (p.r === this.player.r && p.c === this.player.c) {
+        this.pills.splice(i, 1);
+        this.score += 10;
+        this.scoreEl.textContent = this.score;
+        break;
+      }
+    }
   }
 
   startGame() {
