@@ -11,6 +11,7 @@ class Game {
 
     // Game state
     this.maze = null;
+    this.pills = null;
     this.score = 0;
     this.timeLeft = this.TIME_LEFT;
     this.running = false;
@@ -52,6 +53,10 @@ class Game {
 
   initializeGame() {
     this.maze = this.generateMaze(this.TILE_COUNT_Y, this.TILE_COUNT_X);
+    this.pills = this.placePills(
+      this.maze,
+      Math.max(6, Math.floor(this.TILE_COUNT_X + this.TILE_COUNT_Y))
+    );
     this.score = 0;
     this.scoreEl.textContent = this.score;
     this.timeLeft = this.TIME_LEFT;
@@ -107,8 +112,27 @@ class Game {
     return g;
   }
 
+  placePills(grid, count) {
+    console.log(`Placing ${count} pills`);
+    const spots = [];
+    for (let r = 0; r < grid.length; r++) {
+      for (let c = 0; c < grid[0].length; c++) {
+        spots.push({ r, c });
+      }
+    }
+    // exclude start cell (0,0)
+    const filtered = spots.filter((s) => !(s.r === 0 && s.c === 0));
+    const chosen = [];
+    while (chosen.length < count && filtered.length) {
+      const i = Math.floor(Math.random() * filtered.length);
+      chosen.push(filtered.splice(i, 1)[0]);
+    }
+    return chosen;
+  }
+
   render() {
     this.drawMaze(this.maze);
+    this.drawPills();
   }
 
   drawMaze(grid) {
@@ -142,6 +166,25 @@ class Game {
         }
         this.ctx.stroke();
       }
+    }
+  }
+
+  drawPills() {
+    this.ctx.fillStyle = this.PILL_COLOR;
+    for (const p of this.pills) {
+      const { x, y } = this.cellToPixel(p.r, p.c);
+      const cx = x + this.CELL_SIZE / 2;
+      const cy = y + this.CELL_SIZE / 2;
+      const r = this.CELL_SIZE * 0.22;
+      // pill circle
+      this.ctx.beginPath();
+      this.ctx.arc(cx, cy, r, 0, Math.PI * 2);
+      this.ctx.fill();
+      // white plus to look like medicine cross
+      this.ctx.fillStyle = "#fff";
+      this.ctx.fillRect(cx - r * 0.25, cy - r * 0.6, r * 0.5, r * 1.2);
+      this.ctx.fillRect(cx - r * 0.6, cy - r * 0.25, r * 1.2, r * 0.5);
+      this.ctx.fillStyle = this.PILL_COLOR;
     }
   }
 
