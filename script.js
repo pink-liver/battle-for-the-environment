@@ -24,6 +24,9 @@ class Game {
     this.startBtn = document.getElementById("startBtn");
     this.restartBtn = document.getElementById("restartBtn");
 
+    this.instructionsPopup = document.getElementById("instructionsPopup");
+    this.gameOverPopup = document.getElementById("gameOverPopup");
+
     this.scoreEl = document.getElementById("score");
     this.timeEl = document.getElementById("time");
     this.finalScoreEl = document.getElementById("finalScore");
@@ -46,8 +49,8 @@ class Game {
     this.running = true;
 
     // Hide all popups when game starts
-    document.getElementById("instructionsPopup").style.display = "none";
-    document.getElementById("gameOverPopup").style.display = "none";
+    this.instructionsPopup.style.display = "none";
+    this.gameOverPopup.style.display = "none";
 
     if (this.timerInterval) clearInterval(this.timerInterval);
     this.timerInterval = setInterval(() => {
@@ -63,7 +66,7 @@ class Game {
     this.running = false;
     clearInterval(this.timerInterval);
     this.finalScoreEl.textContent = this.score;
-    document.getElementById("gameOverPopup").style.display = "flex";
+    this.gameOverPopup.style.display = "flex";
   }
 }
 
