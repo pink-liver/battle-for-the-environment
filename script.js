@@ -11,6 +11,7 @@ class Game {
 
     // Game state
     this.maze = null;
+    this.player = null;
     this.pills = null;
     this.score = 0;
     this.timeLeft = this.TIME_LEFT;
@@ -53,6 +54,7 @@ class Game {
 
   initializeGame() {
     this.maze = this.generateMaze(this.TILE_COUNT_Y, this.TILE_COUNT_X);
+    this.player = { r: 0, c: 0 };
     this.pills = this.placePills(
       this.maze,
       Math.max(6, Math.floor(this.TILE_COUNT_X + this.TILE_COUNT_Y))
@@ -133,6 +135,7 @@ class Game {
   render() {
     this.drawMaze(this.maze);
     this.drawPills();
+    this.drawPlayer();
   }
 
   drawMaze(grid) {
@@ -186,6 +189,21 @@ class Game {
       this.ctx.fillRect(cx - r * 0.6, cy - r * 0.25, r * 1.2, r * 0.5);
       this.ctx.fillStyle = this.PILL_COLOR;
     }
+  }
+
+  drawPlayer() {
+    const { x, y } = this.cellToPixel(this.player.r, this.player.c);
+    const pad = this.CELL_SIZE * 0.18;
+    const size = this.CELL_SIZE - pad * 2;
+    this.ctx.fillStyle = this.PLAYER_COLOR;
+    this.ctx.fillRect(x + pad, y + pad, size, size);
+    // small white cross to indicate clinic worker
+    this.ctx.fillStyle = "#fff";
+    const cx = x + this.CELL_SIZE / 2;
+    const cy = y + this.CELL_SIZE / 2;
+    const l = this.CELL_SIZE * 0.12;
+    this.ctx.fillRect(cx - l / 2, cy - l * 1.5, l, l * 3);
+    this.ctx.fillRect(cx - l * 1.5, cy - l / 2, l * 3, l);
   }
 
   cellToPixel(r, c) {
