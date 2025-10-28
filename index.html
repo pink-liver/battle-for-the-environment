@@ -18,15 +18,22 @@
     <main>
       <canvas id="game" width="720" height="480" aria-label="Maze game canvas">
       </canvas>
-      <button id="startBtn">Start Game</button>
     </main>
 
-    <div id="overlay" class="overlay hidden">
-      <div class="overlay-inner">
-        <h2>Time's up!</h2>
-        <p>Your score: <span id="finalScore">0</span></p>
-        <button id="restartBtn">Play Again</button>
+    <div id="instructionsPopup" class="popup">
+      <div class="popup-content">
+        <h2>Game Instructions</h2>
+        <p>Welcome to Battle for the Environment!</p>
+        <ul>
+          <li>Use arrow keys to move your character</li>
+          <li>Collect pills before time runs out</li>
+          <li>Avoid obstacles and find your way through the maze</li>
+          <li>Score as many points as you can!</li>
+        </ul>
+        <button id="startBtn" class="start-btn">Start Game</button>
       </div>
     </div>
+
+    <script src="script.js"></script>
   </body>
 </html>
