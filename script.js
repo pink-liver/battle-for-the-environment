@@ -47,6 +47,7 @@ class Game {
 
     // Hide all popups when game starts
     document.getElementById("instructionsPopup").style.display = "none";
+    document.getElementById("gameOverPopup").style.display = "none";
 
     if (this.timerInterval) clearInterval(this.timerInterval);
     this.timerInterval = setInterval(() => {
@@ -62,6 +63,7 @@ class Game {
     this.running = false;
     clearInterval(this.timerInterval);
     this.finalScoreEl.textContent = this.score;
+    document.getElementById("gameOverPopup").style.display = "flex";
   }
 }
 

@@ -123,6 +123,13 @@ button {
   background-color: #4b8de0;
 }
 
+.final-score {
+  font-size: 3rem;
+  font-weight: bold;
+  color: var(--accent);
+  margin: 1rem 0;
+}
+
 /* responsive */
 @media (max-width: 720px) {
   canvas {
