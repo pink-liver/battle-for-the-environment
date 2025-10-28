@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Battle for the environment</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="main-header">
+      <h1>Battle for the environment</h1>
+      <div class="hud">
+        <div>Score: <span id="score">0</span></div>
+        <div>Time: <span id="time">30</span>s</div>
+      </div>
+    </header>
+
+    <main>
+      <canvas id="game" width="720" height="480" aria-label="Maze game canvas">
+      </canvas>
+      <button id="startBtn">Start Game</button>
+    </main>
+
+    <div id="overlay" class="overlay hidden">
+      <div class="overlay-inner">
+        <h2>Time's up!</h2>
+        <p>Your score: <span id="finalScore">0</span></p>
+        <button id="restartBtn">Play Again</button>
+      </div>
+    </div>
+  </body>
+</html>

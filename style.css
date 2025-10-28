@@ -1,0 +1,105 @@
+:root {
+  --clinic-blue: #e9f7ff;
+  --accent: #66a3f2;
+  --wall: #0d0d0d;
+  --floor: #ffffff;
+  --pill: #d9534f;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: Segoe UI, Roboto, Arial, sans-serif;
+  background: linear-gradient(180deg, var(--clinic-blue), #f7fbff);
+  color: #1b242f;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 18px;
+}
+
+/* Header */
+.main-header {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.main-header h1 {
+  font-size: 20px;
+  color: var(--accent);
+}
+
+.hud {
+  display: flex;
+  gap: 18px;
+  font-weight: 600;
+}
+
+/* Main */
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  max-width: 900px;
+}
+
+canvas {
+  background: var(--floor);
+  border: 8px solid var(--accent);
+  border-radius: 6px;
+}
+
+button {
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* Popup */
+.overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.overlay.hidden {
+  display: none;
+}
+
+.overlay-inner {
+  background: white;
+  padding: 28px;
+  border-radius: 10px;
+  min-width: 260px;
+  text-align: center;
+  border: 3px solid var(--accent);
+}
+
+/* responsive */
+@media (max-width: 720px) {
+  canvas {
+    width: 92vw;
+    height: 92vw;
+  }
+}
