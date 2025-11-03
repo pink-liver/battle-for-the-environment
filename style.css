@@ -153,13 +153,23 @@ button {
 }
 
 .character-btn {
-  font-size: 2rem;
   padding: 0.5rem;
   background: none;
   border: 3px solid transparent;
   border-radius: 12px;
   cursor: pointer;
   transition: all 0.2s;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.character-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .character-btn:hover {

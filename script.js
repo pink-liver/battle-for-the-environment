@@ -4,9 +4,6 @@
 class Game {
   constructor() {
     // Settings
-    this.PLAYER_COLOR = getComputedStyle(document.documentElement)
-      .getPropertyValue("--player")
-      .trim();
     this.FLOOR_COLOR = getComputedStyle(document.documentElement)
       .getPropertyValue("--floor")
       .trim();
@@ -15,6 +12,19 @@ class Game {
       .trim();
     this.TIME_LEFT = 30;
     this.TARGET_CELL_SIZE = 30; // Target size for each cell in pixels
+
+    // Character images
+    this.characterImages = {
+      dog: new Image(),
+      cat: new Image(),
+      seal: new Image(),
+      ghost: new Image(),
+    };
+
+    // Load character images
+    Object.keys(this.characterImages).forEach((char) => {
+      this.characterImages[char].src = `public/player-${char}.png`;
+    });
 
     // Game state
     this.maze = null;
@@ -226,13 +236,18 @@ class Game {
 
   drawPlayer() {
     const { x, y } = this.cellToPixel(this.player.r, this.player.c);
-    const cx = x + this.CELL_SIZE / 2;
-    const cy = y + this.CELL_SIZE / 2;
+    const pad = this.CELL_SIZE * 0.1;
+    const size = this.CELL_SIZE - pad * 2;
 
-    this.ctx.font = `${this.CELL_SIZE * 0.5}px Arial`;
-    this.ctx.textAlign = "center";
-    this.ctx.textBaseline = "middle";
-    this.ctx.fillText(this.selectedCharacter, cx, cy);
+    if (
+      this.selectedCharacter &&
+      this.characterImages[this.selectedCharacter]
+    ) {
+      const image = this.characterImages[this.selectedCharacter];
+      if (image.complete) {
+        this.ctx.drawImage(image, x + pad, y + pad, size, size);
+      }
+    }
   }
 
   cellToPixel(r, c) {
