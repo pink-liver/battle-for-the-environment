@@ -4,8 +4,15 @@
 class Game {
   constructor() {
     // Settings
-    this.PLAYER_COLOR = "#2c3e50";
-    this.PILL_COLOR = "#d9534f";
+    this.PLAYER_COLOR = getComputedStyle(document.documentElement)
+      .getPropertyValue("--player")
+      .trim();
+    this.FLOOR_COLOR = getComputedStyle(document.documentElement)
+      .getPropertyValue("--floor")
+      .trim();
+    this.WALL_COLOR = getComputedStyle(document.documentElement)
+      .getPropertyValue("--wall")
+      .trim();
     this.TIME_LEFT = 30;
     this.TARGET_CELL_SIZE = 30; // Target size for each cell in pixels
 
@@ -161,9 +168,9 @@ class Game {
 
   drawMaze(grid) {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    this.ctx.fillStyle = "#fff";
+    this.ctx.fillStyle = this.FLOOR_COLOR;
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-    this.ctx.strokeStyle = "#2c3e50";
+    this.ctx.strokeStyle = this.WALL_COLOR;
     this.ctx.lineWidth = 3;
 
     for (let r = 0; r < grid.length; r++) {
@@ -194,7 +201,9 @@ class Game {
   }
 
   drawPills() {
-    this.ctx.fillStyle = this.PILL_COLOR;
+    this.ctx.fillStyle = getComputedStyle(document.documentElement)
+      .getPropertyValue("--pill")
+      .trim();
     for (const p of this.pills) {
       const { x, y } = this.cellToPixel(p.r, p.c);
       const cx = x + this.CELL_SIZE / 2;
@@ -205,10 +214,14 @@ class Game {
       this.ctx.arc(cx, cy, r, 0, Math.PI * 2);
       this.ctx.fill();
       // white plus to look like medicine cross
-      this.ctx.fillStyle = "#fff";
+      this.ctx.fillStyle = getComputedStyle(document.documentElement)
+        .getPropertyValue("--white")
+        .trim();
       this.ctx.fillRect(cx - r * 0.25, cy - r * 0.6, r * 0.5, r * 1.2);
       this.ctx.fillRect(cx - r * 0.6, cy - r * 0.25, r * 1.2, r * 0.5);
-      this.ctx.fillStyle = this.PILL_COLOR;
+      this.ctx.fillStyle = getComputedStyle(document.documentElement)
+        .getPropertyValue("--pill")
+        .trim();
     }
   }
 
@@ -219,7 +232,9 @@ class Game {
     this.ctx.fillStyle = this.PLAYER_COLOR;
     this.ctx.fillRect(x + pad, y + pad, size, size);
     // small white cross to indicate clinic worker
-    this.ctx.fillStyle = "#fff";
+    this.ctx.fillStyle = getComputedStyle(document.documentElement)
+      .getPropertyValue("--white")
+      .trim();
     const cx = x + this.CELL_SIZE / 2;
     const cy = y + this.CELL_SIZE / 2;
     const l = this.CELL_SIZE * 0.12;
