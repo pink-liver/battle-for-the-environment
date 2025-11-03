@@ -149,6 +149,7 @@ button:active {
 
 /* Popup */
 .popup {
+  font-family: "Pixelify Sans", sans-serif;
   position: fixed;
   top: 0;
   left: 0;
@@ -174,10 +175,11 @@ button:active {
 }
 
 .popup-content {
-  font-size: 10px;
+  font-size: 14px;
 }
 
 .popup-content h2 {
+  font-family: "Press Start 2P", cursive;
   color: var(--text-color-accent);
   margin-bottom: 1.5rem;
   font-size: 14px;
@@ -215,6 +217,7 @@ button:active {
 }
 
 .final-score {
+  font-family: "Press Start 2P", cursive;
   font-size: 2rem;
   color: var(--text-color-accent);
   margin: 1.5rem 0;
