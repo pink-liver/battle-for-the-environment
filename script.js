@@ -5,10 +5,10 @@ class Game {
   constructor() {
     // Settings
     this.FLOOR_COLOR = getComputedStyle(document.documentElement)
-      .getPropertyValue("--floor")
+      .getPropertyValue("--dark-floor")
       .trim();
     this.WALL_COLOR = getComputedStyle(document.documentElement)
-      .getPropertyValue("--wall")
+      .getPropertyValue("--dark-wall")
       .trim();
     this.TIME_LEFT = 30;
     this.TARGET_CELL_SIZE = 30; // Target size for each cell in pixels
@@ -339,7 +339,52 @@ class Cell {
   }
 }
 
+// Theme handling
+function initTheme() {
+  const themeToggle = document.getElementById("themeToggle");
+
+  // Function to toggle theme
+  function toggleTheme() {
+    const body = document.body;
+    const isLightTheme = body.classList.contains("light-theme");
+
+    body.classList.toggle("light-theme");
+    themeToggle.innerHTML = isLightTheme ? "🌙" : "☀️";
+
+    // If we have an active game instance, update its colors and re-render
+    if (isLightTheme) {
+      window.gameInstance.FLOOR_COLOR = getComputedStyle(
+        document.documentElement
+      )
+        .getPropertyValue("--dark-floor")
+        .trim();
+      window.gameInstance.WALL_COLOR = getComputedStyle(
+        document.documentElement
+      )
+        .getPropertyValue("--dark-wall")
+        .trim();
+      window.gameInstance.render();
+    } else {
+      window.gameInstance.FLOOR_COLOR = getComputedStyle(
+        document.documentElement
+      )
+        .getPropertyValue("--light-floor")
+        .trim();
+      window.gameInstance.WALL_COLOR = getComputedStyle(
+        document.documentElement
+      )
+        .getPropertyValue("--light-wall")
+        .trim();
+      window.gameInstance.render();
+    }
+  }
+
+  // Add click event listener to theme toggle button
+  themeToggle.addEventListener("click", toggleTheme);
+}
+
 // Initialize the Game when the page loads
 document.addEventListener("DOMContentLoaded", () => {
-  const game = new Game();
+  initTheme();
+  window.gameInstance = new Game();
 });

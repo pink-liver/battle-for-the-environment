@@ -1,13 +1,43 @@
 :root {
-  --clinic-blue: #e9f7ff;
-  --text-color-accent: #66a3f2;
-  --wall: #0d0d0d;
-  --floor: #ffffff;
-  --text-color: #0d0d0d;
+  --primary: #f266c1;
+  --secondary: #590e4d;
+  --r1-blue: #0860dc;
+  --accent-blue: #49b1f2;
+  --light-blue: #e9f7ff;
+  --highlight: #f2ec91;
+  --dark: #0d0d0d;
   --white: #ffffff;
-  --text-color-reverse: #ffffff;
-  --pill: #d9534f;
-  --player: #2c3e50;
+  --dark-gray: #1e1e1e;
+  --mid-gray: #2d2d2d;
+  --light-gray: #404040;
+
+  /* Light theme colors */
+  --light-text-color-accent: var(--accent-blue);
+  --light-canvas-border: var(--accent-blue);
+  --light-wall: var(--dark-gray);
+  --light-floor: var(--white);
+  --light-text-color: var(--dark);
+  --light-bg-gradient-start: var(--light-blue);
+  --light-bg-gradient-end: var(--white);
+
+  /* Dark theme colors */
+  --dark-text-color-accent: var(--primary);
+  --dark-canvas-border: var(--accent-blue);
+  --dark-wall: var(--accent-blue);
+  --dark-floor: var(--dark-gray);
+  --dark-text-color: var(--white);
+  --dark-bg-gradient-start: var(--dark-gray);
+  --dark-bg-gradient-end: var(--dark);
+}
+
+/* Default to dark theme */
+:root {
+  --text-color-accent: var(--dark-text-color-accent);
+  --canvas-border: var(--dark-canvas-border);
+  --text-color: var(--dark-text-color);
+  --text-color-reverse: var(--white);
+  --bg-gradient-start: var(--dark-bg-gradient-start);
+  --bg-gradient-end: var(--dark-bg-gradient-end);
 }
 
 * {
@@ -23,13 +53,44 @@ body {
 
 body {
   font-family: Segoe UI, Roboto, Arial, sans-serif;
-  background: linear-gradient(180deg, var(--clinic-blue), #f7fbff);
+  background: linear-gradient(
+    180deg,
+    var(--bg-gradient-start),
+    var(--bg-gradient-end)
+  );
   color: var(--text-color);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 12px;
   padding: 18px;
+}
+
+/* Theme toggle button */
+.theme-toggle {
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s;
+}
+
+.theme-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Light theme class */
+body.light-theme {
+  --text-color-accent: var(--light-text-color-accent);
+  --canvas-border: var(--light-canvas-border);
+  --text-color: var(--light-text-color);
+  --bg-gradient-start: var(--light-bg-gradient-start);
+  --bg-gradient-end: var(--light-bg-gradient-end);
 }
 
 /* Header */
@@ -64,8 +125,8 @@ main {
 
 canvas {
   background: var(--floor);
-  border: 8px solid var(--text-color-accent);
-  border-radius: 6px;
+  border: 5px solid var(--canvas-border);
+  border-radius: 4px;
 }
 
 button {
@@ -75,6 +136,16 @@ button {
   padding: 8px 12px;
   border-radius: 6px;
   cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+button:hover {
+  background-color: var(--accent-blue);
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: translateY(0);
 }
 
 /* Popup */
@@ -92,12 +163,15 @@ button {
 }
 
 .popup-content {
-  background-color: var(--floor);
+  background-color: var(--mid-gray);
   padding: 2rem;
   border-radius: 12px;
   max-width: 500px;
   width: 90%;
   text-align: center;
+  border: 1px solid var(--light-gray);
+  color: var(--text-color);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
 .popup-content h2 {
@@ -113,6 +187,7 @@ button {
 
 .popup-content li {
   margin: 0.5rem 0;
+  color: var(--text-color);
 }
 
 .start-btn {
@@ -154,8 +229,8 @@ button {
 
 .character-btn {
   padding: 0.5rem;
-  background: none;
-  border: 3px solid transparent;
+  background: var(--dark-gray);
+  border: 2px solid var(--light-gray);
   border-radius: 12px;
   cursor: pointer;
   transition: all 0.2s;
@@ -170,15 +245,27 @@ button {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  filter: brightness(0.9);
+  transition: filter 0.2s;
 }
 
 .character-btn:hover {
-  background: var(--clinic-blue);
+  background: var(--mid-gray);
+  border-color: var(--accent-blue);
+}
+
+.character-btn:hover .character-img {
+  filter: brightness(1.1);
 }
 
 .character-btn.selected {
-  border-color: var(--accent);
-  background: var(--clinic-blue);
+  border-color: var(--primary);
+  background: var(--mid-gray);
+  box-shadow: 0 0 10px rgba(242, 102, 193, 0.3);
+}
+
+.character-btn.selected .character-img {
+  filter: brightness(1.1);
 }
 
 /* responsive */
