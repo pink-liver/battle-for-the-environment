@@ -40,6 +40,17 @@ class Game {
     this.gameOverPopup = document.getElementById("gameOverPopup");
 
     this.scoreEl = document.getElementById("score");
+    // Character selection
+    this.selectedCharacter = null;
+    this.characterBtns = document.querySelectorAll(".character-btn");
+    this.characterBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        this.characterBtns.forEach((b) => b.classList.remove("selected"));
+        btn.classList.add("selected");
+        this.selectedCharacter = btn.dataset.char;
+        this.startBtn.disabled = false;
+      });
+    });
     this.timeEl = document.getElementById("time");
     this.finalScoreEl = document.getElementById("finalScore");
 
@@ -215,19 +226,13 @@ class Game {
 
   drawPlayer() {
     const { x, y } = this.cellToPixel(this.player.r, this.player.c);
-    const pad = this.CELL_SIZE * 0.18;
-    const size = this.CELL_SIZE - pad * 2;
-    this.ctx.fillStyle = this.PLAYER_COLOR;
-    this.ctx.fillRect(x + pad, y + pad, size, size);
-    // small white cross to indicate clinic worker
-    this.ctx.fillStyle = getComputedStyle(document.documentElement)
-      .getPropertyValue("--white")
-      .trim();
     const cx = x + this.CELL_SIZE / 2;
     const cy = y + this.CELL_SIZE / 2;
-    const l = this.CELL_SIZE * 0.12;
-    this.ctx.fillRect(cx - l / 2, cy - l * 1.5, l, l * 3);
-    this.ctx.fillRect(cx - l * 1.5, cy - l / 2, l * 3, l);
+
+    this.ctx.font = `${this.CELL_SIZE * 0.5}px Arial`;
+    this.ctx.textAlign = "center";
+    this.ctx.textBaseline = "middle";
+    this.ctx.fillText(this.selectedCharacter, cx, cy);
   }
 
   cellToPixel(r, c) {
@@ -279,6 +284,9 @@ class Game {
   }
 
   startGame() {
+    if (!this.selectedCharacter) {
+      return;
+    }
     this.initializeGame();
     this.running = true;
 

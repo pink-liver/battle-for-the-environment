@@ -127,11 +127,48 @@ button {
   background-color: var(--text-color-accent);
 }
 
+.start-btn[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .final-score {
   font-size: 3rem;
   font-weight: bold;
   color: var(--text-color-accent);
   margin: 1rem 0;
+}
+
+/* character-select */
+.character-select {
+  margin: 1rem 0;
+  text-align: center;
+}
+
+.character-options {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.character-btn {
+  font-size: 2rem;
+  padding: 0.5rem;
+  background: none;
+  border: 3px solid transparent;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.character-btn:hover {
+  background: var(--clinic-blue);
+}
+
+.character-btn.selected {
+  border-color: var(--accent);
+  background: var(--clinic-blue);
 }
 
 /* responsive */
