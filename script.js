@@ -201,27 +201,15 @@ class Game {
   }
 
   drawPills() {
-    this.ctx.fillStyle = getComputedStyle(document.documentElement)
-      .getPropertyValue("--pill")
-      .trim();
+    this.ctx.font = `${this.CELL_SIZE * 0.5}px Arial`;
+    this.ctx.textAlign = "center";
+    this.ctx.textBaseline = "middle";
+
     for (const p of this.pills) {
       const { x, y } = this.cellToPixel(p.r, p.c);
       const cx = x + this.CELL_SIZE / 2;
       const cy = y + this.CELL_SIZE / 2;
-      const r = this.CELL_SIZE * 0.22;
-      // pill circle
-      this.ctx.beginPath();
-      this.ctx.arc(cx, cy, r, 0, Math.PI * 2);
-      this.ctx.fill();
-      // white plus to look like medicine cross
-      this.ctx.fillStyle = getComputedStyle(document.documentElement)
-        .getPropertyValue("--white")
-        .trim();
-      this.ctx.fillRect(cx - r * 0.25, cy - r * 0.6, r * 0.5, r * 1.2);
-      this.ctx.fillRect(cx - r * 0.6, cy - r * 0.25, r * 1.2, r * 0.5);
-      this.ctx.fillStyle = getComputedStyle(document.documentElement)
-        .getPropertyValue("--pill")
-        .trim();
+      this.ctx.fillText("💊", cx, cy);
     }
   }
 
