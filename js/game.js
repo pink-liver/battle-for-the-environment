@@ -1,6 +1,3 @@
-// Clinic Maze game
-// Grid / maze generation using recursive backtracker
-
 class Game {
   constructor() {
     // Settings
@@ -382,10 +379,3 @@ function initTheme() {
   // Add click event listener to theme toggle button
   themeToggle.addEventListener("click", toggleTheme);
 }
-
-// Initialize the Game when the page loads
-document.addEventListener("DOMContentLoaded", () => {
-  initTheme();
-  window.gameInstance = new Game();
-  window.leaderboardInstance = new Leaderboard();
-});
