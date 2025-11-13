@@ -33,8 +33,36 @@
     </header>
 
     <main>
-      <canvas id="game" width="720" height="480" aria-label="Maze game canvas">
-      </canvas>
+      <div class="game-container">
+        <canvas
+          id="game"
+          width="720"
+          height="480"
+          aria-label="Maze game canvas"
+        >
+        </canvas>
+        <div class="leaderboard-container">
+          <div class="leaderboard">
+            <h2>排行榜</h2>
+            <div class="leaderboard-content">
+              <div id="leaderboardLoading" class="loading">載入中...</div>
+              <div
+                id="leaderboardList"
+                class="leaderboard-list"
+                style="display: none"
+              >
+                <!-- Leaderboard entries will be populated here -->
+              </div>
+              <div id="leaderboardError" class="error" style="display: none">
+                載入排行榜失敗
+              </div>
+            </div>
+            <button id="refreshLeaderboard" class="refresh-btn">
+              重新整理
+            </button>
+          </div>
+        </div>
+      </div>
     </main>
 
     <div id="instructionsPopup" class="popup">
@@ -94,6 +122,7 @@
       </div>
     </div>
 
+    <script src="leaderboard.js"></script>
     <script src="script.js"></script>
   </body>
 </html>

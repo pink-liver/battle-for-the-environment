@@ -387,4 +387,5 @@ function initTheme() {
 document.addEventListener("DOMContentLoaded", () => {
   initTheme();
   window.gameInstance = new Game();
+  window.leaderboardInstance = new Leaderboard();
 });
