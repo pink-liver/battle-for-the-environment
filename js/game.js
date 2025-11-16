@@ -61,6 +61,11 @@ class Game {
     this.timeEl = document.getElementById("time");
     this.finalScoreEl = document.getElementById("finalScore");
 
+    // Name input elements
+    this.playerNameInput = document.getElementById("playerNameInput");
+    this.saveScoreBtn = document.getElementById("saveScoreBtn");
+    this.saveStatus = document.getElementById("saveStatus");
+
     // Calculate grid dimensions based on canvas size
     this.TILE_COUNT_X = Math.floor(this.canvas.width / this.TARGET_CELL_SIZE);
     this.TILE_COUNT_Y = Math.floor(this.canvas.height / this.TARGET_CELL_SIZE);
@@ -96,6 +101,16 @@ class Game {
 
     this.startBtn.addEventListener("click", () => this.startGame());
     this.restartBtn.addEventListener("click", () => this.startGame());
+
+    // Save score events
+    this.saveScoreBtn.addEventListener("click", () => this.handleSaveScore());
+
+    // Enter key on name input
+    this.playerNameInput.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") {
+        this.handleSaveScore();
+      }
+    });
   }
 
   initializeGame() {
@@ -322,7 +337,57 @@ class Game {
     this.running = false;
     clearInterval(this.timerInterval);
     this.finalScoreEl.textContent = this.score;
+
+    // Reset save form state
+    this.resetSaveForm();
+
     this.gameOverPopup.style.display = "flex";
+  }
+
+  resetSaveForm() {
+    this.playerNameInput.value = "";
+    this.playerNameInput.disabled = false;
+    this.saveScoreBtn.disabled = false;
+    this.saveStatus.textContent = "";
+    this.saveStatus.className = "save-status";
+  }
+
+  async handleSaveScore() {
+    const playerName = this.playerNameInput.value.trim();
+
+    if (!playerName) {
+      this.showSaveStatus("請輸入您的名字", "error");
+      return;
+    }
+
+    this.playerNameInput.disabled = true;
+    this.saveScoreBtn.disabled = true;
+    this.showSaveStatus("儲存中...", "loading");
+
+    const result = await window.leaderboardInstance.saveScore(
+      playerName,
+      this.score
+    );
+
+    if (result.success) {
+      this.showSaveStatus("分數已儲存！", "success");
+    } else {
+      this.showSaveStatus(`儲存失敗: ${result.error}`, "error");
+      // Re-enable buttons on error
+      this.playerNameInput.disabled = false;
+      this.saveScoreBtn.disabled = false;
+    }
+  }
+
+  handleSkipSave() {
+    this.playerNameInput.disabled = true;
+    this.saveScoreBtn.disabled = true;
+    this.showSaveStatus("已跳過儲存", "");
+  }
+
+  showSaveStatus(message, type) {
+    this.saveStatus.textContent = message;
+    this.saveStatus.className = `save-status ${type}`;
   }
 }
 

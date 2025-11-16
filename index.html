@@ -118,6 +118,19 @@
         <h2>Time's up!</h2>
         <p>YOUR FINAL SCORE:</p>
         <p class="final-score"><span id="finalScore">0</span></p>
+
+        <div class="name-input-section">
+          <p>輸入您的名字以儲存到排行榜：</p>
+          <input
+            type="text"
+            id="playerNameInput"
+            placeholder="請輸入您的名字"
+            maxlength="20"
+          />
+          <button id="saveScoreBtn" class="save-btn">Save</button>
+          <div id="saveStatus" class="save-status"></div>
+        </div>
+
         <button id="restartBtn" class="start-btn">Play Again</button>
       </div>
     </div>

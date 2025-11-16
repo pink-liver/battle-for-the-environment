@@ -11,6 +11,37 @@ class Leaderboard {
     this.loadLeaderboard();
   }
 
+  async saveScore(playerName, score) {
+    console.log("Saving score:", playerName, score);
+    try {
+      const url = `${
+        this.apiHost
+      }/api/game/environment/rank?name=${encodeURIComponent(
+        playerName
+      )}&score=${score}`;
+
+      const response = await fetch(url, {
+        method: "GET",
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+
+      // Refresh leaderboard after saving
+      setTimeout(() => {
+        this.loadLeaderboard();
+      }, 500);
+
+      return { success: true, data: result };
+    } catch (error) {
+      console.error("Error saving score:", error);
+      return { success: false, error: error.message };
+    }
+  }
+
   async loadLeaderboard() {
     this.showLoading();
 
