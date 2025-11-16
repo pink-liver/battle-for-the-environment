@@ -157,7 +157,7 @@ button:active {
 
 /* Popup */
 .popup {
-  font-family: "Pixelify Sans", sans-serif;
+  font-family: "Noto Sans TC", sans-serif;
   position: fixed;
   top: 0;
   left: 0;
@@ -207,7 +207,6 @@ button:active {
 }
 
 .start-btn {
-  font-family: "Press Start 2P", cursive;
   font-size: 10px;
   padding: 14px 24px;
   margin-top: 1rem;
@@ -224,9 +223,14 @@ button:active {
   cursor: not-allowed;
 }
 
+.final-score-title {
+  font-family: "Press Start 2P", cursive;
+  font-size: 0.8rem;
+}
+
 .final-score {
   font-family: "Press Start 2P", cursive;
-  font-size: 2rem;
+  font-size: 1.8rem;
   color: var(--text-color-accent);
   margin: 1.5rem 0;
   text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
@@ -369,6 +373,7 @@ button:active {
 }
 
 .leaderboard {
+  font-family: "Noto Sans TC", sans-serif;
   background: var(--mid-gray);
   border: 2px solid var(--light-gray);
   border-radius: 12px;
@@ -379,9 +384,9 @@ button:active {
 }
 
 .leaderboard h2 {
-  font-family: "Pixelify Sans", sans-serif;
+  font-family: "Noto Sans TC", sans-serif;
   color: var(--text-color-accent);
-  font-size: 14px;
+  font-size: 1.2rem;
   margin-bottom: 1rem;
   text-align: center;
   border-bottom: 1px solid var(--light-gray);
@@ -395,14 +400,12 @@ button:active {
 }
 
 .leaderboard-list {
-  font-family: "Pixelify Sans", sans-serif;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
 
 .leaderboard-item {
-  font-family: "Press Start 2P", cursive;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -434,27 +437,30 @@ button:active {
 }
 
 .leaderboard-rank {
+  font-family: "Press Start 2P", cursive;
   color: var(--text-color-accent);
-  font-weight: bold;
-  min-width: 20px;
+  font-weight: 400;
+  min-width: 18px;
 }
 
 .leaderboard-name {
   flex: 1;
   margin: 0 0.5rem;
+  font-weight: 600;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .leaderboard-score {
+  font-family: "Press Start 2P", cursive;
   color: var(--highlight);
-  font-weight: bold;
+  font-weight: 400;
 }
 
 .loading,
 .error {
-  font-family: "Pixelify Sans", sans-serif;
+  font-family: "Noto Sans TC", sans-serif;
   text-align: center;
   padding: 2rem;
   font-size: 10px;
@@ -466,7 +472,6 @@ button:active {
 }
 
 .refresh-btn {
-  font-family: "Press Start 2P", cursive;
   font-size: 8px;
   padding: 8px 12px;
   background-color: var(--text-color-accent);
