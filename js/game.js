@@ -65,6 +65,7 @@ class Game {
     this.playerNameInput = document.getElementById("playerNameInput");
     this.saveScoreBtn = document.getElementById("saveScoreBtn");
     this.saveStatus = document.getElementById("saveStatus");
+    this.nameInputSection = document.querySelector(".name-input-section");
 
     // Calculate grid dimensions based on canvas size
     this.TILE_COUNT_X = Math.floor(this.canvas.width / this.TARGET_CELL_SIZE);
@@ -321,6 +322,9 @@ class Game {
     this.instructionsPopup.style.display = "none";
     this.gameOverPopup.style.display = "none";
 
+    // Reset name input section visibility for next game
+    this.nameInputSection.style.display = "block";
+
     this.render();
 
     if (this.timerInterval) clearInterval(this.timerInterval);
@@ -340,6 +344,13 @@ class Game {
 
     // Reset save form state
     this.resetSaveForm();
+
+    // Show or hide name input section based on score
+    if (this.score === 0) {
+      this.nameInputSection.style.display = "none";
+    } else {
+      this.nameInputSection.style.display = "block";
+    }
 
     this.gameOverPopup.style.display = "flex";
   }
